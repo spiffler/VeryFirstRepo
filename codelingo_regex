@@ -1,0 +1,16 @@
+import requests
+import re
+from collections import Counter
+from nltk.corpus import stopwords
+
+r = requests.get('https://codelingo.wordpress.com/2017/02/22/stopwords/')
+
+
+# set the regex
+regex = r'([A-Za-z]+)'
+tokenized_words = re.findall(regex,r.text)
+filtered_words = [word for word in tokenized_words if word not in stopwords.words('english')] 
+
+wordcount = Counter(filtered_words)
+
+print(wordcount.most_common(30))
